@@ -121,7 +121,7 @@ class MainActivity : BaseActivity() {
 
         //create xls file
         val folderPath = Environment.getExternalStorageDirectory().path + "/Download/"
-        val fileName = "barcodedata_${System.currentTimeMillis()}.xls"
+        val fileName = "barcodedata_${CommonUtils.getTodayStringDate()}.xls"
         val file: File? = File(folderPath, fileName)
         file?.createNewFile()
 
