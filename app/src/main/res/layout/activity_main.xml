@@ -6,7 +6,29 @@
     <Button
         style="@style/WidthMatchHeightWrap"
         android:background="@color/colorPrimary"
+        android:onClick="startBtnClick"
         android:text="@string/start_scan"
         android:textColor="@color/white" />
+
+    <Button
+        style="@style/WidthMatchHeightWrap"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:background="@color/colorPrimary"
+        android:onClick="fetchBtnClick"
+        android:text="@string/fetch"
+        android:textColor="@color/white" />
+
+    <Button
+        style="@style/WidthMatchHeightWrap"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:background="@color/colorPrimary"
+        android:onClick="exportBtnClick"
+        android:text="@string/export"
+        android:textColor="@color/white" />
+
+    <ImageView
+        android:id="@+id/barcodeImageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>
