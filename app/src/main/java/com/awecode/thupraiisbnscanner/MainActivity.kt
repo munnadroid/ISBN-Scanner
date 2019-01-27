@@ -74,11 +74,21 @@ class MainActivity : BaseActivity() {
                         CommonUtils.getTodayStringDate(),
                         image = CommonUtils.readFile(result.barcodeImagePath)))
                 Log.v(TAG, "Scanned value: " + result.contents)
+                resumeBarcodeScanner()
 
             }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    private fun resumeBarcodeScanner() {
+        Observable.timer(2 * 1000, TimeUnit.MILLISECONDS)
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe {
+
+                    startZxingScanner()
+                }
     }
 
     override fun onDestroy() {
