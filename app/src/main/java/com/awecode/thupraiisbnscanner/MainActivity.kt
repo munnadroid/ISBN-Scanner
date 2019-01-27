@@ -152,7 +152,7 @@ class MainActivity : BaseActivity() {
         val sqliteToExcel = SQLiteToExcel(this, Constants.DATABASE_NAME, folderPath)
         sqliteToExcel.exportAllTables(fileName, object : SQLiteToExcel.ExportListener {
             override fun onStart() {
-                logv("testing export started")
+                logv("xls file export started")
             }
 
             override fun onCompleted(filePath: String) {
@@ -164,7 +164,7 @@ class MainActivity : BaseActivity() {
 
             override fun onError(e: Exception) {
                 e.printStackTrace()
-                logv("testing export error")
+                logv("xls file export error")
             }
         })
     }
