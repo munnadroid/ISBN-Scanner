@@ -4,6 +4,7 @@
     style="@style/WidthMatchHeightMatchVertical"
     android:layout_margin="@dimen/activity_margin">
 
+
     <Button
         style="@style/WidthMatchHeightWrap"
         android:background="@color/colorPrimary"

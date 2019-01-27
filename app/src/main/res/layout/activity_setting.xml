@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    style="@style/WidthMatchHeightMatchVertical">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        style="@style/WidthMatchHeightWrap"
+        android:background="@color/colorPrimary" />
+
+    <LinearLayout
+        style="@style/WidthMatchHeightMatchVertical"
+        android:layout_margin="@dimen/activity_margin">
+
+
+    </LinearLayout>
+
 
 </LinearLayout>

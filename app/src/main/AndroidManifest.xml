@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".view.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,8 +34,13 @@
             tools:replace="screenOrientation" />
 
         <activity
-            android:name=".history.BarcodeHistoryActivity"
+            android:name="com.awecode.thupraiisbnscanner.view.history.BarcodeHistoryActivity"
             android:screenOrientation="portrait" />
+
+        <activity
+            android:name=".view.setting.SettingActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ToolbarAppTheme" />
     </application>
 
 </manifest>

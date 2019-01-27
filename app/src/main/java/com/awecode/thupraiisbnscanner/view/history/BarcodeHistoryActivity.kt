@@ -1,14 +1,13 @@
-package com.awecode.thupraiisbnscanner.history
+package com.awecode.thupraiisbnscanner.view.history
 
 import android.os.Handler
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.awecode.thupraiisbnscanner.R
-import com.awecode.thupraiisbnscanner.base.BaseActivity
+import com.awecode.thupraiisbnscanner.view.base.BaseActivity
 import com.awecode.thupraiisbnscanner.db.BarcodeDataBase
 import com.awecode.thupraiisbnscanner.db.entity.BarcodeData
 import com.awecode.thupraiisbnscanner.utils.DbWorkerThread
 import kotlinx.android.synthetic.main.activity_barcode_history.*
-import androidx.core.os.HandlerCompat.postDelayed
 
 
 class BarcodeHistoryActivity : BaseActivity() {
