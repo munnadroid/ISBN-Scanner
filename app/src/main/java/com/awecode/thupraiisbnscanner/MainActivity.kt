@@ -55,7 +55,7 @@ class MainActivity : BaseActivity() {
                     mDb?.barcodeDataDao()?.getAll()
             if (barcodeDatas != null && barcodeDatas.isNotEmpty())
                 for (data in barcodeDatas) {
-                    Log.v(TAG, "testing saved data: ${data.barcode} ${data.date}")
+                    Log.v(TAG, "testing saved data: ${data.isbn} ${data.date}")
                     mUiHandler.post {
                         //show saved barcode image in imageview
                         val bitmap = BitmapFactory.decodeByteArray(data.image, 0, data.image?.size!!)

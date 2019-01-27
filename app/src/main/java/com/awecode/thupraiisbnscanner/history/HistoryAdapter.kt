@@ -1,5 +1,6 @@
 package com.awecode.thupraiisbnscanner.history
 
+import android.graphics.BitmapFactory
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,8 +30,12 @@ class HistoryAdapter(val dataList: List<BarcodeData>, val itemClick: (BarcodeDat
         fun bindHistory(data: BarcodeData) {
             with(data) {
 
-                itemView.isbnTextView.text = barcode
+                itemView.isbnTextView.text = isbn
                 itemView.dateTextView.text = date
+
+                //show saved barcode image
+                val bitmap = BitmapFactory.decodeByteArray(data.image, 0, image?.size!!)
+                itemView.barcodeImageView.setImageBitmap(bitmap)
             }
         }
     }

@@ -8,19 +8,32 @@
         style="@style/WidthMatchHeightWrapVertical"
         android:layout_margin="@dimen/activity_margin">
 
-        <TextView
-            android:id="@+id/isbnTextView"
-            style="@style/WidthMatchHeightWrap"
-            android:gravity="left"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            tools:text="Testing" />
+        <RelativeLayout style="@style/WidthMatchHeightWrapHorizontal">
 
-        <TextView
-            android:id="@+id/dateTextView"
-            style="@style/WidthMatchHeightWrap"
-            android:gravity="left"
-            android:textSize="13sp"
-            tools:text="Testing" />
+            <TextView
+                android:id="@+id/isbnTextView"
+                style="@style/WidthWrapHeightWrap"
+                android:layout_alignParentLeft="true"
+                android:gravity="left"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                tools:text="Testing" />
+
+            <TextView
+                android:id="@+id/dateTextView"
+                style="@style/WidthWrapHeightWrap"
+                android:layout_alignParentRight="true"
+                android:gravity="left"
+                android:textSize="13sp"
+                tools:text="Testing" />
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/barcodeImageView"
+            style="@style/WidthWrapHeightWrap"
+            android:layout_marginTop="5dp"
+            tools:src="@mipmap/ic_launcher" />
     </LinearLayout>
 </androidx.cardview.widget.CardView>
