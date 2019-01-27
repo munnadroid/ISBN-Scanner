@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Thuprai ISBN Scanner</string>
+    <string name="app_name">ISBN Scanner</string>
     <string name="start_scan">Start Scan</string>
     <string name="fetch">Fetch</string>
     <string name="export">Export</string>
