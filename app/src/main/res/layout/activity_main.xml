@@ -12,15 +12,6 @@
         android:textColor="@color/white" />
 
     <Button
-        style="@style/WidthMatchHeightWrap"
-        android:layout_marginTop="@dimen/activity_margin"
-        android:background="@color/colorPrimary"
-        android:onClick="fetchBtnClick"
-        android:text="@string/fetch"
-        android:textColor="@color/white"
-        android:visibility="gone" />
-
-    <Button
         android:id="@+id/exportButton"
         style="@style/WidthMatchHeightWrap"
         android:layout_marginTop="@dimen/activity_margin"

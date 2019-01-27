@@ -7,9 +7,8 @@ import android.view.View
 import com.awecode.thupraiisbnscanner.base.BaseActivity
 import com.google.zxing.integration.android.IntentIntegrator
 import android.widget.Toast
-import android.graphics.BitmapFactory
 import android.os.Environment
-import android.os.Handler
+import android.view.ContextMenu
 import com.ajts.androidmads.library.SQLiteToExcel
 import com.awecode.thupraiisbnscanner.db.BarcodeDataBase
 import com.awecode.thupraiisbnscanner.db.entity.BarcodeData
@@ -32,8 +31,6 @@ class MainActivity : BaseActivity() {
 
     private lateinit var mDbWorkerThread: DbWorkerThread
 
-    private val mUiHandler = Handler()
-
     private var mXlsFilePath: String? = null
 
 
@@ -44,29 +41,6 @@ class MainActivity : BaseActivity() {
         mDb = BarcodeDataBase.getInstance(this)
     }
 
-    private fun initializeWorkerThread() {
-        mDbWorkerThread = DbWorkerThread("dbWorkerThread")
-        mDbWorkerThread.start()
-    }
-
-    private fun fetchAllBarcodeData() {
-        val task = Runnable {
-            val barcodeDatas =
-                    mDb?.barcodeDataDao()?.getAll()
-            if (barcodeDatas != null && barcodeDatas.isNotEmpty())
-                for (data in barcodeDatas) {
-                    Log.v(TAG, "testing saved data: ${data.isbn} ${data.date}")
-                    mUiHandler.post {
-                        //show saved barcode image in imageview
-                        val bitmap = BitmapFactory.decodeByteArray(data.image, 0, data.image?.size!!)
-                        barcodeImageView.setImageBitmap(bitmap)
-                    }
-
-                }
-        }
-
-        mDbWorkerThread.postTask(task)
-    }
 
     /**
      * Get the results
@@ -89,6 +63,17 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    override fun onDestroy() {
+        BarcodeDataBase.destroyInstance()
+        mDbWorkerThread.quit()
+        super.onDestroy()
+    }
+
+    private fun initializeWorkerThread() {
+        mDbWorkerThread = DbWorkerThread("dbWorkerThread")
+        mDbWorkerThread.start()
+    }
+
     /**
      * Resume barcode after 2 seconds
      */
@@ -101,12 +86,6 @@ class MainActivity : BaseActivity() {
                 }
     }
 
-    override fun onDestroy() {
-        BarcodeDataBase.destroyInstance()
-        mDbWorkerThread.quit()
-        super.onDestroy()
-    }
-
     /**
      * Insert barcode data into DB
      */
@@ -115,22 +94,8 @@ class MainActivity : BaseActivity() {
         mDbWorkerThread.postTask(task)
     }
 
-    private fun setBarcodeImage(path: String) {
-        val imgFile = File(path)
-        if (imgFile.exists()) {
-            val myBitmap = BitmapFactory.decodeFile(imgFile.getAbsolutePath())
-            barcodeImageView.setImageBitmap(myBitmap)
-
-        }
-    }
-
-
     fun startBtnClick(view: View?) {
         askRunTimePermissions()
-    }
-
-    fun fetchBtnClick(view: View?) {
-        fetchAllBarcodeData()
     }
 
     fun exportBtnClick(view: View?) {
@@ -159,7 +124,7 @@ class MainActivity : BaseActivity() {
 
         mXlsFilePath = file?.path
 
-        //export excccel file from sqlite file
+        //export excel file from sqlite file
         val sqliteToExcel = SQLiteToExcel(this, Constants.DATABASE_NAME, folderPath)
         sqliteToExcel.exportAllTables(fileName, object : SQLiteToExcel.ExportListener {
             override fun onStart() {
