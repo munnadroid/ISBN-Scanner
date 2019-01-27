@@ -14,9 +14,11 @@ import com.ajts.androidmads.library.SQLiteToExcel
 import com.awecode.thupraiisbnscanner.db.BarcodeDataBase
 import com.awecode.thupraiisbnscanner.db.entity.BarcodeData
 import com.awecode.thupraiisbnscanner.utils.*
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
-import org.jetbrains.anko.doAsync
 import java.io.File
+import java.util.concurrent.TimeUnit
 
 
 class MainActivity : BaseActivity() {
@@ -26,8 +28,12 @@ class MainActivity : BaseActivity() {
     override val layoutId = R.layout.activity_main
 
     private var mDb: BarcodeDataBase? = null
+
     private lateinit var mDbWorkerThread: DbWorkerThread
+
     private val mUiHandler = Handler()
+
+    private var mXlsFilePath: String? = null
 
 
     override fun initView() {
@@ -127,14 +133,20 @@ class MainActivity : BaseActivity() {
         exportSqliteToExcel()
     }
 
+    fun shareFileBtnClick(view: View?) {
+        CommonUtils.shareFile(this, File(mXlsFilePath))
+    }
+
+
     private fun exportSqliteToExcel() {
 
         //create xls file
         val folderPath = Environment.getExternalStorageDirectory().path + "/Download/"
-        val fileName = "barcodedata_${CommonUtils.getTodayStringDate()}.xls"
+        val fileName = "barcodedata_${CommonUtils.getNowDateForFileName()}.xls"
         val file: File? = File(folderPath, fileName)
         file?.createNewFile()
 
+        mXlsFilePath = file?.path
 
         //export excccel file from sqlite file
         val sqliteToExcel = SQLiteToExcel(this, Constants.DATABASE_NAME, folderPath)
@@ -145,6 +157,9 @@ class MainActivity : BaseActivity() {
 
             override fun onCompleted(filePath: String) {
                 showToast("File export success. Check Download folder.")
+                xlsFilePathTextView.text = "$folderPath$fileName"
+                shareButton.visibility = View.VISIBLE
+
             }
 
             override fun onError(e: Exception) {
