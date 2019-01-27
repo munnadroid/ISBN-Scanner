@@ -1,27 +1,27 @@
-package com.awecode.thupraiisbnscanner
+package com.awecode.thupraiisbnscanner.view
 
 import android.Manifest
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Log
-import android.view.View
-import com.awecode.thupraiisbnscanner.base.BaseActivity
+import com.awecode.thupraiisbnscanner.view.base.BaseActivity
 import com.google.zxing.integration.android.IntentIntegrator
 import android.widget.Toast
 import android.os.Environment
-import android.view.ContextMenu
+import android.view.*
 import com.ajts.androidmads.library.SQLiteToExcel
 import com.awecode.thupraiisbnscanner.db.BarcodeDataBase
 import com.awecode.thupraiisbnscanner.db.entity.BarcodeData
-import com.awecode.thupraiisbnscanner.history.BarcodeHistoryActivity
+import com.awecode.thupraiisbnscanner.view.history.BarcodeHistoryActivity
 import com.awecode.thupraiisbnscanner.utils.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.util.concurrent.TimeUnit
-import android.R.menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import com.awecode.thupraiisbnscanner.R
+import com.awecode.thupraiisbnscanner.view.setting.SettingActivity
 
 
 class MainActivity : BaseActivity() {
@@ -39,7 +39,6 @@ class MainActivity : BaseActivity() {
 
     override fun initView() {
         super.initView()
-
         initializeWorkerThread()
         mDb = BarcodeDataBase.getInstance(this)
     }
@@ -66,26 +65,32 @@ class MainActivity : BaseActivity() {
         }
     }
 
-    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
-        super.onCreateContextMenu(menu, v, menuInfo)
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        menuInflater.inflate(R.menu.main_menu, menu)
 
-        val inflater = menuInflater
-        inflater.inflate(R.menu.main_menu, menu)
+        return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onContextItemSelected(item: MenuItem?): Boolean {
-        when(item?.itemId){
-            R.id.setting->
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle item selection
+        return when (item.itemId) {
+            R.id.setting -> {
+                openSettingActivity()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
-
-        return true
-
     }
 
     override fun onDestroy() {
         BarcodeDataBase.destroyInstance()
         mDbWorkerThread.quit()
         super.onDestroy()
+    }
+
+    private fun openSettingActivity() {
+        startActivity(Intent(this, SettingActivity::class.java))
     }
 
     private fun initializeWorkerThread() {
