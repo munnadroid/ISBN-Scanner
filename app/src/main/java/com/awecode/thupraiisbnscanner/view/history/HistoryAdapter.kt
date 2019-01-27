@@ -1,4 +1,4 @@
-package com.awecode.thupraiisbnscanner.history
+package com.awecode.thupraiisbnscanner.view.history
 
 import android.graphics.BitmapFactory
 import android.view.LayoutInflater
