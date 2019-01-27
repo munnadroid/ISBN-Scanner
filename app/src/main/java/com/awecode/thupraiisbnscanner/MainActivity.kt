@@ -13,6 +13,7 @@ import android.os.Handler
 import com.ajts.androidmads.library.SQLiteToExcel
 import com.awecode.thupraiisbnscanner.db.BarcodeDataBase
 import com.awecode.thupraiisbnscanner.db.entity.BarcodeData
+import com.awecode.thupraiisbnscanner.history.BarcodeHistoryActivity
 import com.awecode.thupraiisbnscanner.utils.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -57,7 +58,7 @@ class MainActivity : BaseActivity() {
                     Log.v(TAG, "testing saved data: ${data.barcode} ${data.date}")
                     mUiHandler.post {
                         //show saved barcode image in imageview
-                        val bitmap = BitmapFactory.decodeByteArray(data.image, 0, data.image.size)
+                        val bitmap = BitmapFactory.decodeByteArray(data.image, 0, data.image?.size!!)
                         barcodeImageView.setImageBitmap(bitmap)
                     }
 
@@ -88,6 +89,9 @@ class MainActivity : BaseActivity() {
         }
     }
 
+    /**
+     * Resume barcode after 2 seconds
+     */
     private fun resumeBarcodeScanner() {
         Observable.timer(2 * 1000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
@@ -137,6 +141,13 @@ class MainActivity : BaseActivity() {
         CommonUtils.shareFile(this, File(mXlsFilePath))
     }
 
+    fun historyBtnClick(view: View?) {
+        openHistory()
+    }
+
+    private fun openHistory() {
+        startActivity(Intent(this, BarcodeHistoryActivity::class.java))
+    }
 
     private fun exportSqliteToExcel() {
 

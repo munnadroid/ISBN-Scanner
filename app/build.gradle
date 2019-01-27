@@ -27,7 +27,11 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
     implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
+    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.cardview:cardview:1.0.0'
+
     implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.1.0-alpha3'
@@ -50,8 +54,7 @@ dependencies {
     //sqlite to excel and vice-versa
     implementation 'com.ajts.androidmads.SQLite2Excel:library:1.0.4'
 
-    // Anko Commons
+    // anko Commons
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
-
 
 }
