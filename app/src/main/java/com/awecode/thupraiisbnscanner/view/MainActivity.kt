@@ -19,6 +19,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.util.concurrent.TimeUnit
+import android.R.menu
+import android.view.MenuInflater
+import android.view.MenuItem
 
 
 class MainActivity : BaseActivity() {
@@ -61,6 +64,22 @@ class MainActivity : BaseActivity() {
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View?, menuInfo: ContextMenu.ContextMenuInfo?) {
+        super.onCreateContextMenu(menu, v, menuInfo)
+
+        val inflater = menuInflater
+        inflater.inflate(R.menu.main_menu, menu)
+    }
+
+    override fun onContextItemSelected(item: MenuItem?): Boolean {
+        when(item?.itemId){
+            R.id.setting->
+        }
+
+        return true
+
     }
 
     override fun onDestroy() {
