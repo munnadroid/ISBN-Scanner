@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     style="@style/WidthMatchHeightMatchVertical"
     android:layout_margin="@dimen/activity_margin">
 
@@ -19,11 +20,30 @@
         android:textColor="@color/white" />
 
     <Button
+        android:id="@+id/exportButton"
         style="@style/WidthMatchHeightWrap"
         android:layout_marginTop="@dimen/activity_margin"
         android:background="@color/colorPrimary"
         android:onClick="exportBtnClick"
         android:text="@string/export"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/xlsFilePathTextView"
+        style="@style/WidthMatchHeightWrap"
+        android:layout_marginTop="3dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        tools:text="Testing" />
+
+    <Button
+        android:id="@+id/shareButton"
+        style="@style/WidthMatchHeightWrap"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:background="@color/colorPrimary"
+        android:onClick="shareFileBtnClick"
+        android:text="@string/share_xls_file"
+        android:visibility="gone"
         android:textColor="@color/white" />
 
     <ImageView

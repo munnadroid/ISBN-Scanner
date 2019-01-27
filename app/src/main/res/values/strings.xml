@@ -3,4 +3,5 @@
     <string name="start_scan">Start Scan</string>
     <string name="fetch">Fetch</string>
     <string name="export">Export</string>
+    <string name="share_xls_file">Share XLS File</string>
 </resources>
