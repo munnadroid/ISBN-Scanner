@@ -1,4 +1,4 @@
-package com.awecode.thupraiisbnscanner.base
+package com.awecode.thupraiisbnscanner.view.base
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
