@@ -34,11 +34,12 @@
             android:text="@string/enable_price_input"
             app:buttonTint="@color/colorPrimary" />
 
+        <!--Save button-->
         <Button
             style="@style/WidthMatchHeightWrap"
-            android:onClick="saveBtnClick"
             android:layout_marginTop="@dimen/activity_margin"
             android:background="@color/colorPrimary"
+            android:onClick="saveBtnClick"
             android:text="@string/save"
             android:textColor="@color/white" />
 

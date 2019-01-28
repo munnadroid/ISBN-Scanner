@@ -54,9 +54,13 @@ class MainActivity : BaseActivity(), SqliteToXlsExportListener {
         if (result != null) {
             if (result.contents == null) {
                 showToast("Cancelled")
-            } else
-                showPriceInputDialog(result) //show price input dialog
+            } else {
+                if (Setting.priceInputStatus)
+                    showPriceInputDialog(result) //show price input dialog
+                else
+                    saveBarcodeData(result, null)
 
+            }
 
         } else {
             super.onActivityResult(requestCode, resultCode, data)
@@ -149,7 +153,7 @@ class MainActivity : BaseActivity(), SqliteToXlsExportListener {
     /**
      * Save barcode data and price in sqlite
      */
-    private fun saveBarcodeData(result: IntentResult, price: String) {
+    private fun saveBarcodeData(result: IntentResult, price: String?) {
         insertBarcodeDataInDb(BarcodeData(null, result.contents,
                 price,
                 CommonUtils.getTodayStringDate(),

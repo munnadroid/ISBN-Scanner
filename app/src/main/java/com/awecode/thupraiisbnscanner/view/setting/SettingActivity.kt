@@ -44,7 +44,7 @@ class SettingActivity : BaseActivity() {
     private fun saveSetting() {
         Setting.delayTime = delayEditText.text.toString().toLong()
         Setting.priceInputStatus = enablePriceCheckBox.isChecked
-        showToast("Settings saved!")
+        showToast(getString(R.string.settings_saved))
     }
 
 
