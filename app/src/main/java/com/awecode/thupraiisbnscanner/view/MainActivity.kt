@@ -8,6 +8,7 @@ import com.google.zxing.integration.android.IntentIntegrator
 import android.widget.Toast
 import android.os.Environment
 import android.view.*
+import android.widget.Button
 import com.ajts.androidmads.library.SQLiteToExcel
 import com.awecode.thupraiisbnscanner.db.BarcodeDataBase
 import com.awecode.thupraiisbnscanner.db.entity.BarcodeData
@@ -21,6 +22,8 @@ import java.util.concurrent.TimeUnit
 import com.awecode.thupraiisbnscanner.R
 import com.awecode.thupraiisbnscanner.view.setting.SettingActivity
 import com.google.zxing.integration.android.IntentResult
+import android.widget.EditText
+import androidx.appcompat.app.AlertDialog
 
 
 class MainActivity : BaseActivity() {
@@ -52,20 +55,12 @@ class MainActivity : BaseActivity() {
             if (result.contents == null) {
                 showToast("Cancelled")
             } else
-                saveBarcodeData(result) //save barcode data
+                showPriceInputDialog(result) //show price input dialog
+
 
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
-    }
-
-    private fun saveBarcodeData(result: IntentResult) {
-        insertBarcodeDataInDb(BarcodeData(null, result.contents,
-                CommonUtils.getTodayStringDate(),
-                image = CommonUtils.readFile(result.barcodeImagePath)))
-
-        Log.v(TAG, "Scanned value: " + result.contents)
-        resumeBarcodeScanner() //resume barcode after 2 seconds
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -90,6 +85,49 @@ class MainActivity : BaseActivity() {
         BarcodeDataBase.destroyInstance()
         mDbWorkerThread.quit()
         super.onDestroy()
+    }
+
+    /**
+     * Show price input dialog after isbn scan success
+     * Then resume scanner after price input
+     */
+    private fun showPriceInputDialog(result: IntentResult) {
+        val dialogBuilder = AlertDialog.Builder(this)
+        val inflater = this.layoutInflater
+        val dialogView = inflater.inflate(R.layout.price_input_layout, null)
+        dialogBuilder.setView(dialogView)
+
+        val priceEditText = dialogView.findViewById<EditText>(R.id.priceEditText)
+        val button = dialogView.findViewById<Button>(R.id.saveButton)
+        //save button click listener
+        button.setOnClickListener {
+            val price = priceEditText.text.toString()
+            if (validatePrice(price))//price is not empty
+                saveBarcodeData(result, price) //save barcode data and price in sqlite
+            else
+                showToast("Price is empty")
+        }
+        val alertDialog = dialogBuilder.create()
+        alertDialog.show()
+    }
+
+    /**
+     * Check price is empty or not
+     */
+    private fun validatePrice(price: String): Boolean {
+        if (price.isNullOrEmpty())
+            return false
+        return true
+    }
+
+    private fun saveBarcodeData(result: IntentResult, price: String) {
+        insertBarcodeDataInDb(BarcodeData(null, result.contents,
+                price,
+                CommonUtils.getTodayStringDate(),
+                image = CommonUtils.readFile(result.barcodeImagePath)))
+
+        Log.v(TAG, "Scanned value: " + result.contents)
+        resumeBarcodeScanner() //resume barcode after 2 seconds
     }
 
     private fun openSettingActivity() {
