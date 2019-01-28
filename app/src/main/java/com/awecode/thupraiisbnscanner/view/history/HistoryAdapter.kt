@@ -32,7 +32,14 @@ class HistoryAdapter(val dataList: List<BarcodeData>, val itemClick: (BarcodeDat
 
                 itemView.isbnTextView.text = "ISBN: $isbn"
                 itemView.dateTextView.text = date
-                itemView.priceTextView.text = "Price: Rs $price"
+
+                if (price.isNullOrEmpty())
+                    itemView.priceTextView.visibility = View.GONE
+                else {
+                    itemView.priceTextView.visibility = View.VISIBLE
+                    itemView.priceTextView.text = "Price: Rs $price"
+                }
+
 
                 //show saved barcode image
                 val bitmap = BitmapFactory.decodeByteArray(data.image, 0, image?.size!!)
