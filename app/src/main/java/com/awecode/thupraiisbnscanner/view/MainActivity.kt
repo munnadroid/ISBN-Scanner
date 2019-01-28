@@ -30,6 +30,8 @@ class MainActivity : BaseActivity() {
 
     private val TAG = MainActivity::class.java.simpleName
 
+    private val DELAY_SCANNER: Long = 100
+
     override val layoutId = R.layout.activity_main
 
     private var mDb: BarcodeDataBase? = null
@@ -105,7 +107,7 @@ class MainActivity : BaseActivity() {
             if (validatePrice(price))//price is not empty
                 saveBarcodeData(result, price) //save barcode data and price in sqlite
             else
-                showToast("Price is empty")
+                showToast("Price is empty. Please enter valid amount.", Toast.LENGTH_LONG)
         }
         val alertDialog = dialogBuilder.create()
         alertDialog.show()
@@ -120,6 +122,9 @@ class MainActivity : BaseActivity() {
         return true
     }
 
+    /**
+     * Save barcode data and price in sqlite
+     */
     private fun saveBarcodeData(result: IntentResult, price: String) {
         insertBarcodeDataInDb(BarcodeData(null, result.contents,
                 price,
@@ -143,10 +148,9 @@ class MainActivity : BaseActivity() {
      * Resume barcode after 2 seconds
      */
     private fun resumeBarcodeScanner() {
-        Observable.timer(2 * 1000, TimeUnit.MILLISECONDS)
+        Observable.timer(DELAY_SCANNER, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
-
                     startZxingScanner()
                 }
     }
