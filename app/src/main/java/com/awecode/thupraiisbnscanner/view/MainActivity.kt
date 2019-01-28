@@ -6,17 +6,14 @@ import android.util.Log
 import com.awecode.thupraiisbnscanner.view.base.BaseActivity
 import com.google.zxing.integration.android.IntentIntegrator
 import android.widget.Toast
-import android.os.Environment
 import android.view.*
 import android.widget.Button
-import com.ajts.androidmads.library.SQLiteToExcel
 import com.awecode.thupraiisbnscanner.db.BarcodeDataBase
 import com.awecode.thupraiisbnscanner.db.entity.BarcodeData
 import com.awecode.thupraiisbnscanner.view.history.BarcodeHistoryActivity
 import com.awecode.thupraiisbnscanner.utils.*
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import kotlinx.android.synthetic.main.activity_main.*
 import java.io.File
 import java.util.concurrent.TimeUnit
 import com.awecode.thupraiisbnscanner.R
@@ -24,9 +21,11 @@ import com.awecode.thupraiisbnscanner.view.setting.SettingActivity
 import com.google.zxing.integration.android.IntentResult
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import com.awecode.thupraiisbnscanner.model.listener.SqliteToXlsExportListener
+import kotlinx.android.synthetic.main.activity_main.*
 
 
-class MainActivity : BaseActivity() {
+class MainActivity : BaseActivity(), SqliteToXlsExportListener {
 
     private val TAG = MainActivity::class.java.simpleName
 
@@ -87,6 +86,20 @@ class MainActivity : BaseActivity() {
         BarcodeDataBase.destroyInstance()
         mDbWorkerThread.quit()
         super.onDestroy()
+    }
+
+    override fun onExportStart() {
+        logv("xls file export started")
+    }
+
+    override fun onExportComplete(filePath: String, folderPath: String, fileName: String) {
+        showToast("File export success. Check Download folder.")
+        xlsFilePathTextView.text = "$folderPath$fileName"
+        shareButton.visibility = View.VISIBLE
+    }
+
+    override fun onExportError() {
+        logv("xls file export error")
     }
 
     /**
@@ -180,7 +193,9 @@ class MainActivity : BaseActivity() {
     }
 
     fun exportBtnClick(view: View?) {
-        exportSqliteToExcel()
+        val converter = SqliteXlsConverter()
+        converter.setOnExportListener(this)
+        converter.exportSqliteToExcel(this)
     }
 
     fun shareFileBtnClick(view: View?) {
@@ -194,38 +209,7 @@ class MainActivity : BaseActivity() {
     private fun openHistory() {
         startActivity(Intent(this, BarcodeHistoryActivity::class.java))
     }
-
-    private fun exportSqliteToExcel() {
-
-        //create xls file
-        val folderPath = Environment.getExternalStorageDirectory().path + "/Download/"
-        val fileName = "barcodedata_${CommonUtils.getNowDateForFileName()}.xls"
-        val file: File? = File(folderPath, fileName)
-        file?.createNewFile()
-
-        mXlsFilePath = file?.path
-
-        //export excel file from sqlite file
-        val sqliteToExcel = SQLiteToExcel(this, Constants.DATABASE_NAME, folderPath)
-        sqliteToExcel.exportAllTables(fileName, object : SQLiteToExcel.ExportListener {
-            override fun onStart() {
-                logv("xls file export started")
-            }
-
-            override fun onCompleted(filePath: String) {
-                showToast("File export success. Check Download folder.")
-                xlsFilePathTextView.text = "$folderPath$fileName"
-                shareButton.visibility = View.VISIBLE
-
-            }
-
-            override fun onError(e: Exception) {
-                e.printStackTrace()
-                logv("xls file export error")
-            }
-        })
-    }
-
+    
     private fun askRunTimePermissions() {
         rxPermissions
                 ?.request(Manifest.permission.CAMERA,
