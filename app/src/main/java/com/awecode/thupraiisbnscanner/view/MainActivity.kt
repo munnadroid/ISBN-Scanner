@@ -2,8 +2,6 @@ package com.awecode.thupraiisbnscanner.view
 
 import android.Manifest
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.util.Log
 import com.awecode.thupraiisbnscanner.view.base.BaseActivity
 import com.google.zxing.integration.android.IntentIntegrator
@@ -22,6 +20,7 @@ import java.io.File
 import java.util.concurrent.TimeUnit
 import com.awecode.thupraiisbnscanner.R
 import com.awecode.thupraiisbnscanner.view.setting.SettingActivity
+import com.google.zxing.integration.android.IntentResult
 
 
 class MainActivity : BaseActivity() {
@@ -52,17 +51,21 @@ class MainActivity : BaseActivity() {
         if (result != null) {
             if (result.contents == null) {
                 showToast("Cancelled")
-            } else {
-                insertBarcodeDataInDb(BarcodeData(null, result.contents,
-                        CommonUtils.getTodayStringDate(),
-                        image = CommonUtils.readFile(result.barcodeImagePath)))
-                Log.v(TAG, "Scanned value: " + result.contents)
-                resumeBarcodeScanner()
+            } else
+                saveBarcodeData(result) //save barcode data
 
-            }
         } else {
             super.onActivityResult(requestCode, resultCode, data)
         }
+    }
+
+    private fun saveBarcodeData(result: IntentResult) {
+        insertBarcodeDataInDb(BarcodeData(null, result.contents,
+                CommonUtils.getTodayStringDate(),
+                image = CommonUtils.readFile(result.barcodeImagePath)))
+
+        Log.v(TAG, "Scanned value: " + result.contents)
+        resumeBarcodeScanner() //resume barcode after 2 seconds
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
