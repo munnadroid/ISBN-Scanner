@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/WidthMatchHeightMatchVertical"
+    android:padding="@dimen/activity_margin">
+
+
+    <EditText
+        android:id="@+id/priceEditText"
+        style="@style/WidthMatchHeightWrap"
+        android:digits="@string/digits_only"
+        android:hint="@string/enter_price"
+        android:inputType="number" />
+
+    <Button
+        android:id="@+id/saveButton"
+        style="@style/WidthMatchHeightWrap"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+</LinearLayout>
