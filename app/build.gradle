@@ -31,6 +31,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.0-alpha1'
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.google.android.material:material:1.0.0-rc01'
 
     implementation 'androidx.constraintlayout:constraintlayout:1.1.2'
     testImplementation 'junit:junit:4.12'
@@ -56,5 +57,11 @@ dependencies {
 
     // anko Commons
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
+
+    // kotpref core
+    implementation 'com.chibatching.kotpref:kotpref:2.6.0'
+
+    // optional, auto initialization module
+    implementation 'com.chibatching.kotpref:initializer:2.6.0'
 
 }

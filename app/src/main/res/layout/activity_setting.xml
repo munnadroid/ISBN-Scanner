@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/WidthMatchHeightMatchVertical">
 
     <androidx.appcompat.widget.Toolbar
@@ -11,6 +12,35 @@
         style="@style/WidthMatchHeightMatchVertical"
         android:layout_margin="@dimen/activity_margin">
 
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/WidthMatchHeightWrap"
+            android:hint="@string/scan_delay_time_milliseconds">
+
+            <!--Scan delay time in milli seconds-->
+            <EditText
+                android:id="@+id/delayEditText"
+                style="@style/WidthMatchHeightWrap"
+                android:digits="@string/digits_only"
+                android:hint="@string/scan_delay_time_milliseconds"
+                android:inputType="number" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/enablePriceCheckBox"
+            style="@style/WidthMatchHeightWrap"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:text="@string/enable_price_input"
+            app:buttonTint="@color/colorPrimary" />
+
+        <Button
+            style="@style/WidthMatchHeightWrap"
+            android:onClick="saveBtnClick"
+            android:layout_marginTop="@dimen/activity_margin"
+            android:background="@color/colorPrimary"
+            android:text="@string/save"
+            android:textColor="@color/white" />
 
     </LinearLayout>
 

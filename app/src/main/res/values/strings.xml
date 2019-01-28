@@ -11,4 +11,7 @@
     <string name="digits_only">0123456789</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
+    <string name="scan_delay_time_milliseconds">Scan Delay Time (milliseconds)</string>
+    <string name="enable_price_input">Enable Price Input</string>
+    <string name="please_enter_valid_delay_time">Please enter valid delay time.</string>
 </resources>

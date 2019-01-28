@@ -21,6 +21,7 @@ import com.awecode.thupraiisbnscanner.view.setting.SettingActivity
 import com.google.zxing.integration.android.IntentResult
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import com.awecode.thupraiisbnscanner.model.Setting
 import com.awecode.thupraiisbnscanner.model.listener.SqliteToXlsExportListener
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -28,8 +29,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 class MainActivity : BaseActivity(), SqliteToXlsExportListener {
 
     private val TAG = MainActivity::class.java.simpleName
-
-    private val DELAY_SCANNER: Long = 100
 
     override val layoutId = R.layout.activity_main
 
@@ -173,7 +172,7 @@ class MainActivity : BaseActivity(), SqliteToXlsExportListener {
      * Resume barcode after 2 seconds
      */
     private fun resumeBarcodeScanner() {
-        Observable.timer(DELAY_SCANNER, TimeUnit.MILLISECONDS)
+        Observable.timer(Setting.delayTime, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe {
                     startZxingScanner()
@@ -209,7 +208,7 @@ class MainActivity : BaseActivity(), SqliteToXlsExportListener {
     private fun openHistory() {
         startActivity(Intent(this, BarcodeHistoryActivity::class.java))
     }
-    
+
     private fun askRunTimePermissions() {
         rxPermissions
                 ?.request(Manifest.permission.CAMERA,
