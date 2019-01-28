@@ -9,16 +9,26 @@
         style="@style/WidthMatchHeightWrap"
         android:digits="@string/digits_only"
         android:hint="@string/enter_price"
-        android:inputType="number" />
+        android:inputType="number"
+        android:maxLength="20"
+        android:maxLines="1"
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/saveButton"
         style="@style/WidthMatchHeightWrap"
         android:layout_marginTop="10dp"
         android:background="@color/colorPrimary"
-        android:maxLength="20"
-        android:maxLines="1"
         android:text="@string/save"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/cancelButton"
+        style="@style/WidthMatchHeightWrap"
+        android:layout_marginTop="10dp"
+        android:background="@color/red"
+        android:text="@string/cancel"
         android:textColor="@color/white"
         android:textSize="14sp" />
 

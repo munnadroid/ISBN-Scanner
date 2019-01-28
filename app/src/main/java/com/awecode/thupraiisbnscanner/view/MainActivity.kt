@@ -99,7 +99,9 @@ class MainActivity : BaseActivity() {
         val dialogView = inflater.inflate(R.layout.price_input_layout, null)
         dialogBuilder.setView(dialogView)
 
+
         val priceEditText = dialogView.findViewById<EditText>(R.id.priceEditText)
+        val cancelButton = dialogView.findViewById<Button>(R.id.cancelButton)
         val button = dialogView.findViewById<Button>(R.id.saveButton)
         //save button click listener
         button.setOnClickListener {
@@ -109,7 +111,14 @@ class MainActivity : BaseActivity() {
             else
                 showToast("Price is empty. Please enter valid amount.", Toast.LENGTH_LONG)
         }
+
         val alertDialog = dialogBuilder.create()
+
+        //cancel button click listener
+        cancelButton.setOnClickListener {
+            alertDialog.dismiss()
+        }
+
         alertDialog.show()
     }
 
