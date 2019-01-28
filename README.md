@@ -9,3 +9,5 @@ It has xls export feature and can share the export file via mail, messenger and 
 - Saves barcode data, image and date in sqlite
 - Export sqlite db file into xls file
 - Share xls file via intent
+- History list
+- Settings to configure scan dealy time and book price enable status
