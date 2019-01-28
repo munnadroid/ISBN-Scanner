@@ -99,6 +99,7 @@ class MainActivity : BaseActivity() {
         val dialogView = inflater.inflate(R.layout.price_input_layout, null)
         dialogBuilder.setView(dialogView)
 
+        val alertDialog = dialogBuilder.create()
 
         val priceEditText = dialogView.findViewById<EditText>(R.id.priceEditText)
         val cancelButton = dialogView.findViewById<Button>(R.id.cancelButton)
@@ -106,20 +107,22 @@ class MainActivity : BaseActivity() {
         //save button click listener
         button.setOnClickListener {
             val price = priceEditText.text.toString()
-            if (validatePrice(price))//price is not empty
+            if (validatePrice(price)) {//price is not empty
                 saveBarcodeData(result, price) //save barcode data and price in sqlite
-            else
+                alertDialog.dismiss() //dismiss alert dialog
+            } else
                 showToast("Price is empty. Please enter valid amount.", Toast.LENGTH_LONG)
         }
 
-        val alertDialog = dialogBuilder.create()
-
         //cancel button click listener
         cancelButton.setOnClickListener {
-            alertDialog.dismiss()
+            alertDialog.dismiss()//dismiss alert dialog
         }
 
         alertDialog.show()
+
+        //show keyboard in price edittext
+        CommonUtils.showKeyboard(this)
     }
 
     /**

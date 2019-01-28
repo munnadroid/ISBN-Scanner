@@ -6,11 +6,19 @@ import android.content.Context
 import java.io.*
 import android.content.Intent
 import android.net.Uri
+import android.view.inputmethod.InputMethodManager
 import java.net.URLConnection
+import androidx.core.content.ContextCompat.getSystemService
 
 
 class CommonUtils {
     companion object {
+
+
+        fun showKeyboard(context: Context) {
+            val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+            inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)
+        }
 
         /**
          * Share file via intent
