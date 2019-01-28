@@ -30,7 +30,7 @@ class BarcodeHistoryActivity : BaseActivity() {
 
         mUiHandler.postDelayed({
             fetchAllBarcodeData()
-        }, 5000)
+        }, 500)
 
     }
 
@@ -47,8 +47,6 @@ class BarcodeHistoryActivity : BaseActivity() {
                 mUiHandler.post {
                     setupRecyclerView(barcodeDatas)
                 }
-
-
         }
 
         mDbWorkerThread.postTask(task)

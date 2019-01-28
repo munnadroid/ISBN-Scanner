@@ -30,8 +30,9 @@ class HistoryAdapter(val dataList: List<BarcodeData>, val itemClick: (BarcodeDat
         fun bindHistory(data: BarcodeData) {
             with(data) {
 
-                itemView.isbnTextView.text = isbn
+                itemView.isbnTextView.text = "ISBN: $isbn"
                 itemView.dateTextView.text = date
+                itemView.priceTextView.text = "Price: Rs $price"
 
                 //show saved barcode image
                 val bitmap = BitmapFactory.decodeByteArray(data.image, 0, image?.size!!)

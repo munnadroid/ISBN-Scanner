@@ -30,6 +30,15 @@
 
         </RelativeLayout>
 
+        <TextView
+            android:id="@+id/priceTextView"
+            style="@style/WidthWrapHeightWrap"
+            android:layout_alignParentLeft="true"
+            android:gravity="left"
+            android:textColor="@color/black"
+            android:textSize="15sp"
+            tools:text="Price: Rs. 120" />
+
         <ImageView
             android:id="@+id/barcodeImageView"
             style="@style/WidthWrapHeightWrap"
