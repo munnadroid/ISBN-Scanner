@@ -21,7 +21,7 @@ class GunScannerActivity : BaseActivity() {
 
     private fun setupCurrencyListAdapter() {
         val adapter = CurrencyListAdapter(getCurrencyList()) {
-            showToast(it.name.toString())
+            //radiobutton click listener
         }
 
         currencyRecyclerView.layoutManager = LinearLayoutManager(this)

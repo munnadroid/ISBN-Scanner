@@ -3,17 +3,30 @@
     style="@style/WidthMatchHeightMatchVertical"
     android:layout_margin="@dimen/activity_margin">
 
+    <!--ISBN-->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/WidthMatchHeightWrap"
+        android:hint="@string/isbn">
+
+        <EditText
+            android:id="@+id/isbnEditText"
+            style="@style/WidthMatchHeightWrap"
+            android:hint="@string/isbn"
+            android:inputType="text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
 
     <!--Price-->
     <com.google.android.material.textfield.TextInputLayout
         style="@style/WidthMatchHeightWrap"
+        android:layout_marginTop="10dp"
         android:hint="@string/price">
 
         <EditText
             android:id="@+id/priceEditText"
             style="@style/WidthMatchHeightWrap"
             android:digits="@string/digits_only"
-            android:hint="@string/enter_price"
+            android:hint="@string/price"
             android:inputType="number" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -28,5 +41,12 @@
         android:id="@+id/currencyRecyclerView"
         style="@style/WidthMatchHeightWrap"
         android:layout_marginTop="5dp" />
+
+    <Button
+        style="@style/WidthMatchHeightWrap"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:background="@color/colorPrimary"
+        android:text="@string/save"
+        android:textColor="@color/white" />
 
 </LinearLayout>

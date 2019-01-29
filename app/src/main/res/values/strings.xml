@@ -21,4 +21,5 @@
     <string name="start_gun_scanner">Start Gun Scanner</string>
     <string name="price">Price</string>
     <string name="currency">Currency</string>
+    <string name="isbn">ISBN</string>
 </resources>
