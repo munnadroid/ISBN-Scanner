@@ -24,11 +24,20 @@
         android:textSize="14sp" />
 
     <Button
+        android:id="@+id/skipPriceButton"
+        style="@style/WidthMatchHeightWrap"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/skip_price"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+    <Button
         android:id="@+id/cancelButton"
         style="@style/WidthMatchHeightWrap"
         android:layout_marginTop="10dp"
         android:background="@color/red"
-        android:text="@string/cancel"
+        android:text="@string/cancel_scan"
         android:textColor="@color/white"
         android:textSize="14sp" />
 

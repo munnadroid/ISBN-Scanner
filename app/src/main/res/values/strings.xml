@@ -15,4 +15,6 @@
     <string name="enable_price_input">Enable Price Input</string>
     <string name="please_enter_valid_delay_time">Please enter valid delay time.</string>
     <string name="settings_saved">Settings saved!</string>
+    <string name="skip_price">Skip Price</string>
+    <string name="cancel_scan">Cancel Scan</string>
 </resources>

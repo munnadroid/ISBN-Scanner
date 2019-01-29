@@ -119,6 +119,7 @@ class MainActivity : BaseActivity(), SqliteToXlsExportListener {
 
         val priceEditText = dialogView.findViewById<EditText>(R.id.priceEditText)
         val cancelButton = dialogView.findViewById<Button>(R.id.cancelButton)
+        val skipPriceButton = dialogView.findViewById<Button>(R.id.skipPriceButton)
         val button = dialogView.findViewById<Button>(R.id.saveButton)
         //save button click listener
         button.setOnClickListener {
@@ -133,6 +134,11 @@ class MainActivity : BaseActivity(), SqliteToXlsExportListener {
         //cancel button click listener
         cancelButton.setOnClickListener {
             alertDialog.dismiss()//dismiss alert dialog
+        }
+
+        //skip price button click listener
+        skipPriceButton.setOnClickListener {
+            saveBarcodeData(result, null)
         }
 
         alertDialog.show()
