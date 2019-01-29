@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/WidthMatchHeightMatchVertical"
+    android:layout_margin="@dimen/activity_margin">
+
+
+    <!--Price-->
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/WidthMatchHeightWrap"
+        android:hint="@string/price">
+
+        <EditText
+            android:id="@+id/priceEditText"
+            style="@style/WidthMatchHeightWrap"
+            android:digits="@string/digits_only"
+            android:hint="@string/enter_price"
+            android:inputType="number" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        style="@style/WidthMatchHeightWrap"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:text="@string/currency" />
+
+    <!--Currency recyclerview-->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/currencyRecyclerView"
+        style="@style/WidthMatchHeightWrap"
+        android:layout_marginTop="5dp" />
+
+</LinearLayout>

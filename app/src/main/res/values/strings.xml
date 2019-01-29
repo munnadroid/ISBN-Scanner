@@ -17,4 +17,8 @@
     <string name="settings_saved">Settings saved!</string>
     <string name="skip_price">Skip Price</string>
     <string name="cancel_scan">Cancel Scan</string>
+    <string name="start_mobile_scan">Start Mobile Scan</string>
+    <string name="start_gun_scanner">Start Gun Scanner</string>
+    <string name="price">Price</string>
+    <string name="currency">Currency</string>
 </resources>

@@ -9,7 +9,15 @@
         style="@style/WidthMatchHeightWrap"
         android:background="@color/colorPrimary"
         android:onClick="startBtnClick"
-        android:text="@string/start_scan"
+        android:text="@string/start_mobile_scan"
+        android:textColor="@color/white" />
+
+    <Button
+        style="@style/WidthMatchHeightWrap"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:background="@color/colorPrimary"
+        android:onClick="startGunScanBtnClick"
+        android:text="@string/start_gun_scanner"
         android:textColor="@color/white" />
 
     <Button

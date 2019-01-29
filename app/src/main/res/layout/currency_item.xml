@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/WidthMatchHeightWrapHorizontal">
+
+    <!--<RadioGroup-->
+    <!--style="@style/WidthWrapHeightWrap"-->
+    <!--android:id="@+id/currencyRadioGroup">-->
+    <RadioButton
+        android:id="@+id/currencyRadioButton"
+        style="@style/WidthWrapHeightWrap"
+        android:buttonTint="@color/colorPrimary"
+        tools:text="NPR" />
+
+    <!--</RadioGroup>-->
+
+
+</LinearLayout>

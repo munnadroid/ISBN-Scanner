@@ -23,6 +23,7 @@ import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import com.awecode.thupraiisbnscanner.model.Setting
 import com.awecode.thupraiisbnscanner.model.listener.SqliteToXlsExportListener
+import com.awecode.thupraiisbnscanner.view.gun_scanner.GunScannerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -213,6 +214,14 @@ class MainActivity : BaseActivity(), SqliteToXlsExportListener {
 
     fun historyBtnClick(view: View?) {
         openHistory()
+    }
+
+    fun startGunScanBtnClick(view: View?) {
+        openGunScanActivity()
+    }
+
+    private fun openGunScanActivity() {
+        GunScannerActivity.start(this)
     }
 
     private fun openHistory() {

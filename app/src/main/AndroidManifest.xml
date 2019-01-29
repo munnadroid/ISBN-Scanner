@@ -41,6 +41,10 @@
             android:name=".view.setting.SettingActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ToolbarAppTheme" />
+
+        <activity
+            android:name=".view.gun_scanner.GunScannerActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
