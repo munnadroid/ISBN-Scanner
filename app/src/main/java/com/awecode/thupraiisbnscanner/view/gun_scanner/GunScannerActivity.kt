@@ -13,10 +13,7 @@ import com.awecode.thupraiisbnscanner.db.BarcodeDataBase
 import com.awecode.thupraiisbnscanner.db.entity.BarcodeData
 import com.awecode.thupraiisbnscanner.utils.CommonUtils
 import com.awecode.thupraiisbnscanner.utils.DbWorkerThread
-import com.awecode.thupraiisbnscanner.utils.logv
-import android.widget.TextView
 import android.widget.TextView.OnEditorActionListener
-import com.awecode.thupraiisbnscanner.utils.showToast
 import android.view.inputmethod.EditorInfo
 
 
@@ -42,11 +39,35 @@ class GunScannerActivity : BaseActivity() {
         setupCurrencyListAdapter()
     }
 
-    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        if (event.characters != null && !event.characters.isEmpty())
-            logv("testing the barcode value")
-        return super.dispatchKeyEvent(event)
+    private var barcode: String? = null
 
+    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
+
+        //barcode scanner
+        val c = event.unicodeChar
+        //accept only 0..9 and ENTER
+        if (c >= 48 && c <= 57 || c == 10) {
+            if (event.action == 0) {
+                if (c >= 48 && c <= 57)
+                    barcode += "" + c.toChar()
+                else {
+                    if (!barcode.equals("")) {
+                        val b = barcode
+                        barcode = ""
+                        runOnUiThread {
+                            // showToast("testing")
+                            isbnScanFinished()
+                        }
+                    }
+                }
+            }
+            return true
+        }
+        return super.dispatchKeyEvent(event)
+    }
+
+    private fun isbnScanFinished() {
+        saveBarcodeData()
     }
 
     fun saveBtnClick(view: View?) {
@@ -59,6 +80,16 @@ class GunScannerActivity : BaseActivity() {
                 priceEditText.text.toString(),
                 CommonUtils.getTodayStringDate(),
                 null))
+
+        resetFormFields()
+
+    }
+
+    private fun resetFormFields() {
+        priceEditText.setText("")
+        isbnEditText.setText("")
+        priceEditText.requestFocus()
+        CommonUtils.showKeyboard(this, priceEditText)
     }
 
     /**
@@ -90,7 +121,7 @@ class GunScannerActivity : BaseActivity() {
         priceEditText.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 isbnEditText.requestFocus() //move focus to isbn
-                CommonUtils.showKeyboard(this,priceEditText)//show keyboard
+                CommonUtils.showKeyboard(this, priceEditText)//show keyboard
                 return@OnEditorActionListener true
 
             }

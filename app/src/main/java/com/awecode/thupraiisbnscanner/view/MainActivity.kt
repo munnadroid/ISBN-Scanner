@@ -98,6 +98,7 @@ class MainActivity : BaseActivity(), SqliteToXlsExportListener {
 
     override fun onExportComplete(filePath: String, folderPath: String, fileName: String) {
         showToast("File export success. Check Download folder.")
+        mXlsFilePath = filePath
         xlsFilePathTextView.text = "$folderPath$fileName"
         shareButton.visibility = View.VISIBLE
     }
