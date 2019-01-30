@@ -162,6 +162,7 @@ class MainActivity : BaseActivity(), SqliteToXlsExportListener {
      */
     private fun saveBarcodeData(result: IntentResult, price: String?) {
         insertBarcodeDataInDb(BarcodeData(null, result.contents,
+                null,//todo add currency in setting
                 price,
                 CommonUtils.getTodayStringDate(),
                 image = CommonUtils.readFile(result.barcodeImagePath)))

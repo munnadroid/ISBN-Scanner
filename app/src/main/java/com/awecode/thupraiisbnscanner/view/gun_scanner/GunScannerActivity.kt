@@ -14,6 +14,10 @@ import com.awecode.thupraiisbnscanner.db.entity.BarcodeData
 import com.awecode.thupraiisbnscanner.utils.CommonUtils
 import com.awecode.thupraiisbnscanner.utils.DbWorkerThread
 import com.awecode.thupraiisbnscanner.utils.logv
+import android.widget.TextView
+import android.widget.TextView.OnEditorActionListener
+import com.awecode.thupraiisbnscanner.utils.showToast
+import android.view.inputmethod.EditorInfo
 
 
 class GunScannerActivity : BaseActivity() {
@@ -24,6 +28,8 @@ class GunScannerActivity : BaseActivity() {
 
     private lateinit var mDbWorkerThread: DbWorkerThread
 
+    private var mSelectedCurrency: Currency? = null
+
 
     override fun initView() {
         super.initView()
@@ -32,6 +38,7 @@ class GunScannerActivity : BaseActivity() {
         mDb = BarcodeDataBase.getInstance(this)
 
         showKeyboardPriceInputFocus()
+        setupImeActionInPrice()
         setupCurrencyListAdapter()
     }
 
@@ -48,6 +55,7 @@ class GunScannerActivity : BaseActivity() {
 
     private fun saveBarcodeData() {
         insertBarcodeDataInDb(BarcodeData(null, isbnEditText.text.toString(),
+                mSelectedCurrency?.code,
                 priceEditText.text.toString(),
                 CommonUtils.getTodayStringDate(),
                 null))
@@ -66,17 +74,35 @@ class GunScannerActivity : BaseActivity() {
         mDbWorkerThread.start()
     }
 
-
+    /**
+     * Request focus in price edittext
+     *
+     */
     private fun showKeyboardPriceInputFocus() {
-        priceEditText.setOnFocusChangeListener { view, focused ->
-            if (focused)
-                CommonUtils.showKeyboard(this)
-        }
+        priceEditText.requestFocus()
+        CommonUtils.showKeyboard(this)
+    }
+
+    /**
+     * Move focus to ISBN field when softkeyboard enter button clicked in price field
+     */
+    private fun setupImeActionInPrice() {
+        priceEditText.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                isbnEditText.requestFocus() //move focus to isbn
+                CommonUtils.showKeyboard(this,priceEditText)//show keyboard
+                return@OnEditorActionListener true
+
+            }
+            false
+        })
+
     }
 
     private fun setupCurrencyListAdapter() {
         val adapter = CurrencyListAdapter(getCurrencyList()) {
             //radiobutton click listener
+            mSelectedCurrency = it
         }
 
         currencyRecyclerView.layoutManager = LinearLayoutManager(this)
