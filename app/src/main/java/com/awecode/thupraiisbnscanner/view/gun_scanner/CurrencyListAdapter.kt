@@ -21,12 +21,15 @@ class CurrencyListAdapter(val dataList: List<Currency>, val itemClick: (Currency
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val currency = dataList[position]
         holder.itemView.currencyRadioButton.setOnCheckedChangeListener(null)
         holder.itemView.currencyRadioButton.isChecked = position === mCheckedPosition
         holder.itemView.currencyRadioButton.setOnCheckedChangeListener(CompoundButton.OnCheckedChangeListener { buttonView, isChecked ->
             mCheckedPosition = position
             notifyDataSetChanged()
-            itemClick(dataList[position])
+            currency.checked = true
+            itemClick(currency)
+
         })
 
         holder.bindHistory(dataList[position])
