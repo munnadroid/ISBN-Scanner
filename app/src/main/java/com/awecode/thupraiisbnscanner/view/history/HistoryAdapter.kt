@@ -41,9 +41,13 @@ class HistoryAdapter(val dataList: List<BarcodeData>, val itemClick: (BarcodeDat
                 }
 
 
-                //show saved barcode image
-                val bitmap = BitmapFactory.decodeByteArray(data.image, 0, image?.size!!)
-                itemView.barcodeImageView.setImageBitmap(bitmap)
+                if (image != null) {
+                    //show saved barcode image
+                    val bitmap = BitmapFactory.decodeByteArray(image, 0, image?.size!!)
+                    itemView.barcodeImageView.setImageBitmap(bitmap)
+                } else
+                    itemView.barcodeImageView.setImageBitmap(null)
+
             }
         }
     }
