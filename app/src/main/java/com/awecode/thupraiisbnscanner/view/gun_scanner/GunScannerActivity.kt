@@ -15,6 +15,7 @@ import com.awecode.thupraiisbnscanner.utils.CommonUtils
 import com.awecode.thupraiisbnscanner.utils.DbWorkerThread
 import android.widget.TextView.OnEditorActionListener
 import android.view.inputmethod.EditorInfo
+import kotlinx.android.synthetic.main.currency_item.view.*
 
 
 class GunScannerActivity : BaseActivity() {
@@ -26,6 +27,7 @@ class GunScannerActivity : BaseActivity() {
     private lateinit var mDbWorkerThread: DbWorkerThread
 
     private var mSelectedCurrency: Currency? = null
+    private var barcode: String? = null
 
 
     override fun initView() {
@@ -38,8 +40,6 @@ class GunScannerActivity : BaseActivity() {
         setupImeActionInPrice()
         setupCurrencyListAdapter()
     }
-
-    private var barcode: String? = null
 
     override fun dispatchKeyEvent(event: KeyEvent): Boolean {
 
@@ -128,6 +128,16 @@ class GunScannerActivity : BaseActivity() {
             false
         })
 
+        isbnEditText.setOnEditorActionListener(OnEditorActionListener { v, actionId, event ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                saveBarcodeData()
+                return@OnEditorActionListener true
+
+            }
+            false
+        })
+
+
     }
 
     private fun setupCurrencyListAdapter() {
@@ -138,6 +148,9 @@ class GunScannerActivity : BaseActivity() {
 
         currencyRecyclerView.layoutManager = LinearLayoutManager(this)
         currencyRecyclerView.adapter = adapter
+
+        val viewHolder = currencyRecyclerView.findViewHolderForAdapterPosition(0)
+        viewHolder?.itemView?.currencyRadioButton?.isChecked = true
     }
 
     private fun getCurrencyList(): List<Currency> {

@@ -37,6 +37,7 @@
             android:id="@+id/isbnEditText"
             style="@style/WidthMatchHeightWrap"
             android:hint="@string/isbn"
+            android:imeOptions="actionDone"
             android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
