@@ -22,4 +22,5 @@
     <string name="price">Price</string>
     <string name="currency">Currency</string>
     <string name="isbn">ISBN</string>
+    <string name="clear_data">Clear Data</string>
 </resources>

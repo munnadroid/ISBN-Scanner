@@ -1,6 +1,7 @@
 package com.awecode.thupraiisbnscanner.view
 
 import android.Manifest
+import android.content.DialogInterface
 import android.content.Intent
 import android.util.Log
 import com.awecode.thupraiisbnscanner.view.base.BaseActivity
@@ -220,6 +221,28 @@ class MainActivity : BaseActivity(), SqliteToXlsExportListener {
 
     fun startGunScanBtnClick(view: View?) {
         openGunScanActivity()
+    }
+
+    fun clearBtnClicked(view: View?) {
+        showDeleteConfirmationDialog()
+    }
+
+    private fun showDeleteConfirmationDialog() {
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Confirm!")
+        builder.setMessage("Are you sure you want to delete all data?")
+        builder.setPositiveButton("Yes, Delete") { dialog, which ->
+            deleteAllBarcodeData()
+        }
+        builder.setNegativeButton("Cancel", DialogInterface.OnClickListener { dialog, which -> dialog.cancel() })
+        val dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun deleteAllBarcodeData() {
+        val task = Runnable { mDb?.barcodeDataDao()?.deleteAll() }
+        mDbWorkerThread.postTask(task)
     }
 
     private fun openGunScanActivity() {

@@ -14,7 +14,6 @@ import java.net.URLConnection
 class CommonUtils {
     companion object {
 
-
         fun showKeyboard(context: Context) {
             val inputMethodManager = context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
             inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0)

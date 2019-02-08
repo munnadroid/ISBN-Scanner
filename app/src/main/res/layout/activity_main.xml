@@ -55,6 +55,14 @@
         android:text="@string/history"
         android:textColor="@color/white" />
 
+    <Button
+        style="@style/WidthMatchHeightWrap"
+        android:layout_marginTop="@dimen/activity_margin"
+        android:background="@color/colorPrimary"
+        android:onClick="clearBtnClicked"
+        android:text="@string/clear_data"
+        android:textColor="@color/white" />
+
     <ImageView
         android:id="@+id/barcodeImageView"
         android:layout_width="wrap_content"
