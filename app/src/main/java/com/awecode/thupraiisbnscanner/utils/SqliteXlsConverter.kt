@@ -19,6 +19,10 @@ class SqliteXlsConverter {
 
         //create xls file
         val folderPath = Environment.getExternalStorageDirectory().path + "/Download/"
+        val downloadFolder = File(folderPath)
+        if (downloadFolder == null || !downloadFolder.exists())
+            downloadFolder.mkdirs()
+
         val fileName = "barcodedata_${CommonUtils.getNowDateForFileName()}.xls"
         val file: File? = File(folderPath, fileName)
         file?.createNewFile()
